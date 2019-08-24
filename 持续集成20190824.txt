@@ -1,0 +1,11 @@
+1. git
+    本地命令
+        git init
+        git add ***
+        git commit -m "描述区"
+    
+    远程命令
+        git remote add anyName URL
+        git push -u anyName master
+        git fetch 拉取远程仓库变更到本地仓库
+        git merge anyName/master 将远程的变更合并到本地仓库的 master 分支

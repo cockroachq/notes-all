@@ -1,0 +1,40 @@
+一、nosql之redis
+1. 种类
+key-value查询：redis，memcached，ttserver
+面向文档的数据库：mongodb
+面向列的数据库：hbase，cassandra
+面向图的数据库：neo4j
+
+共同点：
+  去除一切和高性能无关的功能
+  追求高并发、高性能
+  在扩展上支持集群甚至分布式
+
+特点：  
+  memcached
+    仅为内存缓存，重启服务数据丢失
+    通过程序或负载均衡可以实现分布式
+    
+2. redis
+  支持内存缓存、持久化
+  数据类型丰富，value可以是strings、lists、sets、sorted sets、hash
+  支持集群，分布式，主从复制
+  操作原子性
+
+  持久化
+    快照(snapshot)：
+      会阻塞客户端请求，可能会丢失数据
+    aof(不用于主从同步):
+      频率
+        always
+        everysec
+        no
+  
+  redis 的生产经验教训
+    1)要进行master-slave 主从同步配置，在服务出现故障时进行切换
+    2)在 master 禁用数据持久化，只需在Slave 上配置数据持久化
+    3)物理内存+虚拟内存不足，这个时候 dump 一直死着，时间久了机器挂掉
+    4)当 rdis 物理内存使用不易超过内存总量的 3/5 
+    5)当达到最大内存时，会清空带有过期时间的 key，即使 key 未到过期时间
+    6)redis 与 DB 同步写的问题，先写 DB，后写 redis
+    
